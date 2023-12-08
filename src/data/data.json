@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "vote": 10,
+    "title": "Podróż na Księżyc",
+    "author": "Iwan Iwanow",
+    "date": "2023-11-01",
+    "summary": "Artykuł o wyimaginowanej podróży na Księżyc, opisujący przygotowania, podróż i badania.",
+    "tags": "CAR",
+    "imagePath": "/car.jpg"
+  },
+  {
+    "id": 2,
+    "vote": 12,
+    "title": "Tajemnice Głębokiego Oceanu",
+    "author": "Elena Pietrowa",
+    "date": "2023-10-20",
+    "summary": "Badanie tajemniczego świata głębinowych stworzeń i podwodnych krajobrazów.",
+    "tags": "MANAGEMENT",
+    "imagePath": "/clock.jpg"
+  },
+  {
+    "id": 3,
+    "vote": 13,
+    "title": "Przyszłość Sztucznej Inteligencji",
+    "author": "Aleksiej Smirnow",
+    "date": "2023-09-15",
+    "summary": "Przegląd ostatnich osiągnięć w dziedzinie AI i prognozy na przyszłość.",
+    "tags": "MUSIC",
+    "imagePath": "/gitar.jpg"
+  }
+]

@@ -1,0 +1,67 @@
+<template>
+  <header>
+    <div class="boxicon">
+      <i class="boxicon_icon fab fa-facebook"></i>
+      <i class="boxicon_icon fab fa-twitter"></i>
+      <i class="boxicon_icon fab fa-instagram"></i>
+      <i class="boxicon_icon fab fa-pinterest"></i>
+    </div>
+    <div class="boxtitle">
+      <span class="title">Philosophy.</span>
+    </div>
+    <div class="search">
+      <span class="search_name">SEARCH</span>
+      <i class="boxicon_icon fas fa-search"></i>
+    </div>
+  </header>
+</template>
+<script setup></script>
+
+<style lang="scss" scoped>
+header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  // justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  padding: 0.5rem;
+  background-color: rgb(0, 0, 0);
+}
+.boxicon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-shrink: 0;
+  &_icon {
+    color: white;
+    font-size: 1.5rem;
+  }
+  & > *:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+}
+
+.search {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  &_name {
+    color: white;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+  }
+}
+
+.boxtitle {
+  font-size: 2rem;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.title {
+  color: white;
+}
+</style>
