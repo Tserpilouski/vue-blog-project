@@ -4,7 +4,7 @@ const props = defineProps(["cardData"]);
 
 <template>
   <div class="card">
-    <img class="card__img" :src="props.cardData.imagePath" alt="" />
+    <p>{{ props.cardData.summary }}</p>
     <div class="card__box">
       <span class="card__date">{{ props.cardData.date }}</span>
       <span class="card__title">{{ props.cardData.title }}</span>

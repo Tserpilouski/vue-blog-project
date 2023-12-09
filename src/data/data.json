@@ -32,21 +32,21 @@
   {
     "id": 4,
     "vote": 8,
-    "title": "Cos tam",
+    "title": "Fajny moment",
     "author": "Aleksiej Smirnow",
     "date": "2023-09-15",
     "summary": "Przegląd ostatnich osiągnięć w dziedzinie AI i prognozy na przyszłość.",
-    "tags": "MUSIC",
-    "imagePath": "/gitar.jpg"
+    "tags": "SPACE",
+    "imagePath": ""
   },
   {
     "id": 5,
     "vote": 4,
-    "title": "new BUms",
+    "title": "NY city",
     "author": "Aleksiej Smirnow",
     "date": "2023-09-15",
     "summary": "Przegląd ostatnich osiągnięć w dziedzinie AI i prognozy na przyszłość.",
-    "tags": "MUSIC",
-    "imagePath": "/gitar.jpg"
+    "tags": "CITY",
+    "imagePath": "/usa.jpg"
   }
 ]

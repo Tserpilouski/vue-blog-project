@@ -2,19 +2,12 @@
 import { computed } from "vue";
 const props = defineProps(["cardData", "specialStyle"]);
 
-console.log(props.specialStyle);
 const backgroundStyle = computed(() => {
   return {
     backgroundImage: `url(${props.cardData.imagePath})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
   };
-});
-const textStyle = computed(() => {
-  if (props.class) {
-    return { fontSize: "1rem", fontWeight: "bold" };
-  }
-  return {};
 });
 </script>
 
@@ -23,9 +16,7 @@ const textStyle = computed(() => {
     <div>
       <span class="cardbox_tag">{{ props.cardData.tags }}</span>
     </div>
-    <span class="cardbox_title" :style="textStyle">{{
-      props.cardData.title
-    }}</span>
+    <span class="cardbox_title">{{ props.cardData.title }}</span>
     <div class="cardbox_auth">
       <span>{{ props.cardData.author }}</span>
       <span>{{ props.cardData.date }}</span>

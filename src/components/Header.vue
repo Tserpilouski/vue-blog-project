@@ -1,17 +1,32 @@
 <template>
   <header>
-    <div class="boxicon">
-      <i class="boxicon_icon fab fa-facebook"></i>
-      <i class="boxicon_icon fab fa-twitter"></i>
-      <i class="boxicon_icon fab fa-instagram"></i>
-      <i class="boxicon_icon fab fa-pinterest"></i>
+    <div class="head-title">
+      <div class="boxicon">
+        <i class="boxicon_icon fab fa-facebook"></i>
+        <i class="boxicon_icon fab fa-twitter"></i>
+        <i class="boxicon_icon fab fa-instagram"></i>
+        <i class="boxicon_icon fab fa-pinterest"></i>
+      </div>
+      <div class="boxtitle">
+        <span class="title">Philosophy.</span>
+      </div>
+      <div class="search">
+        <span class="search_name">SEARCH</span>
+        <i class="boxicon_icon fas fa-search"></i>
+      </div>
     </div>
-    <div class="boxtitle">
-      <span class="title">Philosophy.</span>
-    </div>
-    <div class="search">
-      <span class="search_name">SEARCH</span>
-      <i class="boxicon_icon fas fa-search"></i>
+    <div class="navmenu">
+      <ul>
+        <li>
+          <router-link to="/">Home</router-link>
+        </li>
+        <li>
+          <router-link to="/about">About</router-link>
+        </li>
+        <li>
+          <router-link to="/user-view">User</router-link>
+        </li>
+      </ul>
     </div>
   </header>
 </template>
@@ -21,13 +36,17 @@
 header {
   width: 100%;
   display: flex;
-  flex-direction: row;
-  // justify-content: space-around;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 2rem;
   padding: 0.5rem;
   background-color: rgb(0, 0, 0);
+}
+.head-title {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 .boxicon {
   display: flex;
@@ -63,5 +82,33 @@ header {
 
 .title {
   color: white;
+}
+
+.navmenu {
+  padding-top: 3rem;
+  background-color: black;
+  > ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 2rem;
+    list-style-type: none;
+
+    & > *:not(:last-child) {
+      margin-right: 4rem;
+    }
+
+    li {
+      font-size: 1rem;
+      color: white;
+      padding-bottom: 0.3rem;
+      border-bottom: 2px;
+
+      :hover {
+        color: red;
+        border-bottom: 2px red solid;
+      }
+    }
+  }
 }
 </style>
