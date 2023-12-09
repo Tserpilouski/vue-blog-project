@@ -1,17 +1,32 @@
 <script setup>
-// Принимаем объект cardData как пропс
-const props = defineProps(["cardData"]);
+import { computed } from "vue";
+const props = defineProps(["cardData", "specialStyle"]);
 
-console.log(props.cardData);
+console.log(props.specialStyle);
+const backgroundStyle = computed(() => {
+  return {
+    backgroundImage: `url(${props.cardData.imagePath})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  };
+});
+const textStyle = computed(() => {
+  if (props.class) {
+    return { fontSize: "1rem", fontWeight: "bold" };
+  }
+  return {};
+});
 </script>
 
 <template>
-  <div class="cardbox">
+  <div class="cardbox" :style="backgroundStyle">
     <div>
-      <span>{{ props.cardData.tags }}</span>
+      <span class="cardbox_tag">{{ props.cardData.tags }}</span>
     </div>
-    <span class="cardbox_title">{{ props.cardData.title }}</span>
-    <div>
+    <span class="cardbox_title" :style="textStyle">{{
+      props.cardData.title
+    }}</span>
+    <div class="cardbox_auth">
       <span>{{ props.cardData.author }}</span>
       <span>{{ props.cardData.date }}</span>
     </div>
@@ -20,12 +35,26 @@ console.log(props.cardData);
 
 <style lang="scss" scoped>
 .cardbox {
-  width: 5rem;
-  height: 5rem;
-  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  background-color: rgb(255, 225, 170);
+  color: white;
   &_title {
-    font-size: 1rem;
-    color: black;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  &_tag {
+    display: inline-block;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    background-color: rgb(123, 206, 255);
+  }
+  &_auth {
+    margin-bottom: 2rem;
+  }
+  &_auth > :first-child {
+    margin-right: 0.5rem;
   }
 }
 </style>

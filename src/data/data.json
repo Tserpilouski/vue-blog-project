@@ -28,5 +28,25 @@
     "summary": "Przegląd ostatnich osiągnięć w dziedzinie AI i prognozy na przyszłość.",
     "tags": "MUSIC",
     "imagePath": "/gitar.jpg"
+  },
+  {
+    "id": 4,
+    "vote": 8,
+    "title": "Cos tam",
+    "author": "Aleksiej Smirnow",
+    "date": "2023-09-15",
+    "summary": "Przegląd ostatnich osiągnięć w dziedzinie AI i prognozy na przyszłość.",
+    "tags": "MUSIC",
+    "imagePath": "/gitar.jpg"
+  },
+  {
+    "id": 5,
+    "vote": 4,
+    "title": "new BUms",
+    "author": "Aleksiej Smirnow",
+    "date": "2023-09-15",
+    "summary": "Przegląd ostatnich osiągnięć w dziedzinie AI i prognozy na przyszłość.",
+    "tags": "MUSIC",
+    "imagePath": "/gitar.jpg"
   }
 ]

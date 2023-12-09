@@ -1,7 +1,7 @@
 <script setup>
 import Header from "./components/Header.vue";
 import datas from "./data/data";
-import Votebtn from "./components/VoteBTN.vue";
+// import VoteBTN from "./components/VoteBTN.vue";
 // import SlotComponent from "./components/Sloty.vue";
 import { ref } from "vue";
 const count = ref(0);

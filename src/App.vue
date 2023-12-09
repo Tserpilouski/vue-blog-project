@@ -1,20 +1,17 @@
 <script setup>
-import headerCustom from "./components/Header.vue";
+import Header from "./components/Header.vue";
 import datas from "./data/data";
-import Votebtn from "./components/VoteBTN.vue";
+import VoteBTN from "./components/VoteBTN.vue";
 // import SlotComponent from "./components/Sloty.vue";
-import maincard from "./components/MainCard.vue";
-import { ref } from "vue";
-
-console.log(datas[0].imagePath);
-
-const parentObj = ref(datas);
+import MainCard from "./components/MainCard.vue";
+import CardWithFoto from "./components/card/CardWithFoto.vue";
+import { ref, computed } from "vue";
 </script>
 
 <template>
   <body>
     <div class="container">
-      <headerCustom></headerCustom>
+      <Header></Header>
       <div class="navmenu">
         <ul>
           <li>Home</li>
@@ -24,17 +21,31 @@ const parentObj = ref(datas);
         </ul>
       </div>
       <div class="newsbox">
-        <maincard
-          v-for="card in datas"
+        <MainCard
+          v-for="card in datas.sort((a, b) => b.vote - a.vote).slice(0, 1)"
           :key="card.id"
           :cardData="card"
-        ></maincard>
+        ></MainCard>
+        <div class="cardcolumn">
+          <MainCard
+            v-for="card in datas.sort((a, b) => b.vote - a.vote).slice(1, 3)"
+            :key="card.id"
+            :cardData="card"
+          ></MainCard>
+        </div>
+      </div>
+      <div class="anothernews">
+        <CardWithFoto
+          v-for="card in datas.sort((a, b) => b.vote - a.vote).slice(3)"
+          :key="card.id"
+          :cardData="card"
+        ></CardWithFoto>
       </div>
     </div>
   </body>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 body {
   background-color: black;
 }
@@ -70,5 +81,16 @@ body {
 .newsbox {
   display: flex;
   flex-direction: row;
+}
+.newsbox > :first-child {
+  flex-basis: 100%;
+}
+
+.anothernews {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem 0 0 1rem;
+  min-height: 10rem;
+  background-color: rgb(255, 255, 255);
 }
 </style>
