@@ -1,3 +1,9 @@
+## My training project for learning Vue 3 (Composition API)
+
+In this project I created a simple blog site, during which I learned Vue and methods of using Composition API from scratch.
+
+Below you can find instructions on how to test my project on your computer:)
+
 # .
 
 This template should help get you started developing with Vue 3 in Vite.
