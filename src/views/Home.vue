@@ -5,7 +5,7 @@ import CardWithFoto from "../components/card/CardWithFoto.vue";
 </script>
 
 <template>
-  <body>
+  <div class="bgr">
     <div class="container">
       <div class="newsbox">
         <MainCard
@@ -21,26 +21,23 @@ import CardWithFoto from "../components/card/CardWithFoto.vue";
           ></MainCard>
         </div>
       </div>
-      <div class="anothernews">
-        <CardWithFoto
-          v-for="card in datas
-            .sort((a, b) => b.vote - a.vote)
-            .slice(3)
-            .filter((card) => card && card.imagePath)"
-          :key="card.id"
-          :cardData="card"
-        ></CardWithFoto>
-      </div>
     </div>
-  </body>
+  </div>
+  <div class="container">
+    <div class="anothernews">
+      <CardWithFoto
+        v-for="card in datas.sort((a, b) => b.vote - a.vote).slice(3)"
+        :key="card.id"
+        :cardData="card"
+        @click="$router.push({ name: 'Article', params: { id: card.id } })"
+      ></CardWithFoto>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
-body {
-  background-color: black;
-}
 .container {
-  width: 1024px;
+  width: 1280px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -50,6 +47,7 @@ body {
 .newsbox {
   display: flex;
   flex-direction: row;
+  margin-bottom: 4rem;
 }
 .newsbox > :first-child {
   flex-basis: 100%;
@@ -61,5 +59,9 @@ body {
   padding: 1rem 0 0 1rem;
   min-height: 30rem;
   background-color: rgb(255, 255, 255);
+}
+
+.bgr {
+  background-color: black;
 }
 </style>

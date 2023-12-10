@@ -4,6 +4,7 @@ import App from "./App.vue";
 import Home from "./views/Home.vue";
 import About from "./views/About.vue";
 import UserView from "./views/UserView.vue";
+import Article from "./views/Article.vue";
 
 import "./assets/css/main.css";
 
@@ -15,6 +16,7 @@ const router = createRouter({
     { name: "Home", path: "/", component: Home },
     { name: "About", path: "/about", component: About },
     { name: "UserView", path: "/user-view", component: UserView },
+    { name: "Article", path: "/article/:id(\\d+)", component: Article },
   ],
 });
 

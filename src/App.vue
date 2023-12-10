@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bgr">
     <Header></Header>
     <div>
       <RouterView />
@@ -10,3 +10,5 @@
 <script setup>
 import Header from "./components/Header.vue";
 </script>
+
+<style></style>

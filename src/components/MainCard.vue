@@ -31,6 +31,8 @@ const backgroundStyle = computed(() => {
   justify-content: end;
   background-color: rgb(255, 225, 170);
   color: white;
+  border: 1px solid black;
+
   &_title {
     font-size: 2rem;
     font-weight: bold;
@@ -47,5 +49,9 @@ const backgroundStyle = computed(() => {
   &_auth > :first-child {
     margin-right: 0.5rem;
   }
+}
+.cardbox:hover {
+  border: 1px white solid;
+  cursor: pointer;
 }
 </style>
