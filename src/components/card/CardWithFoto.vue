@@ -5,7 +5,7 @@ const props = defineProps(["cardData"]);
 <template>
   <div class="card">
     <img class="card__img" :src="props.cardData.imagePath" alt="" />
-    <div class="card__box">
+    <div class="card__info">
       <span class="card__date">{{ props.cardData.date }}</span>
       <span class="card__title">{{ props.cardData.title }}</span>
       <p class="card__text">
@@ -39,7 +39,7 @@ const props = defineProps(["cardData"]);
     margin-bottom: 1.3rem;
   }
 
-  &__box {
+  &__info {
     display: flex;
     flex-direction: column;
     padding-left: 1rem;

@@ -31,7 +31,7 @@ import datas from "../data/data.json";
 import { useRoute } from "vue-router";
 import { ref } from "vue";
 import PostEditor from "../components/PostEditor.vue";
-import Modal from "../components/Modal.vue";
+import Modal from "../components/modals/Modal.vue";
 
 const datass = ref(datas);
 const isModalOpen = ref(false);

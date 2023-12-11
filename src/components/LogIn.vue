@@ -14,7 +14,20 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { db } from "@/firebase";
+import { collection, getDocs } from "firebase/firestore";
+
+onMounted(() => {
+  async function fetchData() {
+    const querySnapshot = await getDocs(collection(db, "articles"));
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
+    });
+  }
+
+  fetchData();
+});
 
 const inputs = ref({
   email: "",
@@ -57,5 +70,9 @@ function login() {
 .input {
   display: flex;
   flex-direction: column;
+}
+
+label {
+  color: black;
 }
 </style>
