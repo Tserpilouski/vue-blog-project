@@ -12,12 +12,14 @@ import CardWithFoto from "../components/card/CardWithFoto.vue";
           v-for="card in datas.sort((a, b) => b.vote - a.vote).slice(0, 1)"
           :key="card.id"
           :cardData="card"
+          @click="$router.push({ name: 'Article', params: { id: card.id } })"
         ></MainCard>
         <div class="cardcolumn">
           <MainCard
             v-for="card in datas.sort((a, b) => b.vote - a.vote).slice(1, 3)"
             :key="card.id"
             :cardData="card"
+            @click="$router.push({ name: 'Article', params: { id: card.id } })"
           ></MainCard>
         </div>
       </div>
@@ -57,7 +59,6 @@ import CardWithFoto from "../components/card/CardWithFoto.vue";
   display: flex;
   flex-wrap: wrap;
   padding: 1rem 0 0 1rem;
-  min-height: 30rem;
   background-color: rgb(255, 255, 255);
 }
 

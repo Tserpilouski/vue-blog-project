@@ -12,12 +12,12 @@ const backgroundStyle = computed(() => {
 </script>
 
 <template>
-  <div class="cardbox" :style="backgroundStyle">
+  <div class="card" :style="backgroundStyle">
     <div>
-      <span class="cardbox_tag">{{ props.cardData.tags }}</span>
+      <span class="card_tag">{{ props.cardData.tags }}</span>
     </div>
-    <span class="cardbox_title">{{ props.cardData.title }}</span>
-    <div class="cardbox_auth">
+    <span class="card_title">{{ props.cardData.title }}</span>
+    <div class="card_auth">
       <span>{{ props.cardData.author }}</span>
       <span>{{ props.cardData.date }}</span>
     </div>
@@ -25,7 +25,7 @@ const backgroundStyle = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-.cardbox {
+.card {
   display: flex;
   flex-direction: column;
   justify-content: end;
@@ -50,7 +50,7 @@ const backgroundStyle = computed(() => {
     margin-right: 0.5rem;
   }
 }
-.cardbox:hover {
+.card:hover {
   border: 1px white solid;
   cursor: pointer;
 }

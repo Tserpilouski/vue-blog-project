@@ -14,20 +14,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { db } from "@/firebase";
-import { collection, getDocs } from "firebase/firestore";
-
-onMounted(() => {
-  async function fetchData() {
-    const querySnapshot = await getDocs(collection(db, "articles"));
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-    });
-  }
-
-  fetchData();
-});
+import { ref } from "vue";
 
 const inputs = ref({
   email: "",

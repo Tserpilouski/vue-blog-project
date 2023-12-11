@@ -100,3 +100,10 @@ button {
 .error {
   color: red;
 }
+
+hr {
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-width: 1px;
+}

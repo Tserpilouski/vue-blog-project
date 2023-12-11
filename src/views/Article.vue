@@ -1,13 +1,20 @@
 <template>
   <BaseLayout>
     <template #header>
-      <h1 v-if="data">{{ data.title }}</h1>
-      <span v-if="data">{{ data.tags }}</span>
+      <div class="header-box">
+        <img v-if="data" class="header-box__img" :src="data.imagePath" />
+      </div>
     </template>
 
     <template #default>
-      <p v-if="data">{{ data.summary }}</p>
-      <img v-if="data" class="img" :src="data.imagePath" />
+      <div class="main-box">
+        <h1 class="main-box__title" v-if="data">{{ data.title }}</h1>
+        <hr />
+        <span class="main-box__tag" v-if="data">{{ data.tags }}</span>
+        <hr />
+        <p class="main-box__text" v-if="data">{{ data.text }}</p>
+        <p class="main-box__text" v-if="data">{{ data.summary }}</p>
+      </div>
     </template>
 
     <template #footer>
@@ -33,11 +40,11 @@ import { ref } from "vue";
 import PostEditor from "../components/PostEditor.vue";
 import Modal from "../components/modals/Modal.vue";
 
+const route = useRoute();
 const datass = ref(datas);
 const isModalOpen = ref(false);
-const route = useRoute();
-const currentUrl = route.fullPath;
-const id = +currentUrl.split("/")[2];
+
+const id = +route.fullPath.split("/")[2];
 const data = datass.value.find((card) => card.id === id);
 const editableData = ref(data ? { ...data } : {});
 
@@ -59,7 +66,43 @@ const saveData = () => {
 </script>
 
 <style lang="scss" scoped>
-.img {
-  width: 15rem;
+.header-box {
+  width: 100%;
+  height: 40rem;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2rem;
+
+  &__img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    object-fit: contain;
+  }
+}
+
+.main-box {
+  display: flex;
+  flex-direction: column;
+  &__title {
+    font-size: 4rem;
+  }
+  &__tag {
+    background-color: rgb(255, 255, 255);
+    width: max-content;
+    padding: 0.4rem 1rem;
+    color: black;
+  }
+  &__tag:hover {
+    cursor: pointer;
+    background-color: red;
+    color: white;
+  }
+  &__text {
+    padding: 0 8rem 0 8rem;
+    font-size: 1.2rem;
+  }
 }
 </style>
