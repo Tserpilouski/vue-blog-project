@@ -107,3 +107,7 @@ hr {
   margin-bottom: 1rem;
   border-width: 1px;
 }
+
+input {
+  border-width: 0 0 0.1rem 0;
+}

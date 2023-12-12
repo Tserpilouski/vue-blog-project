@@ -18,6 +18,21 @@
     </template>
 
     <template #footer>
+      <hr />
+      <h2 class="main-box__title-h2">Feel free to give us your opinion:</h2>
+      <div class="chat">
+        <label class="chat__label" for="chat">Write your thoughts:</label>
+        <input
+          class="chat__input"
+          id="chat"
+          type="text"
+          placeholder="write..."
+        />
+        <div class="comments">
+          <Comment :comment="comment"></Comment>
+        </div>
+      </div>
+
       <p>Here's some contact info</p>
       <button v-if="data" @click="openModal">Edit Post</button>
     </template>
@@ -39,14 +54,20 @@ import { useRoute } from "vue-router";
 import { ref } from "vue";
 import PostEditor from "../components/PostEditor.vue";
 import Modal from "../components/modals/Modal.vue";
+import Comment from "../components/Comment.vue";
+import dataComment from "../data/dataComent.json";
+console.log(dataComment);
 
 const route = useRoute();
 const datass = ref(datas);
+const coments = ref(dataComment);
 const isModalOpen = ref(false);
 
 const id = +route.fullPath.split("/")[2];
 const data = datass.value.find((card) => card.id === id);
 const editableData = ref(data ? { ...data } : {});
+const comment = coments.value.find((comment) => comment.id_article === id);
+console.log(comment);
 
 function openModal() {
   if (data) {
@@ -88,6 +109,10 @@ const saveData = () => {
   flex-direction: column;
   &__title {
     font-size: 4rem;
+    &-h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
   }
   &__tag {
     background-color: rgb(255, 255, 255);
@@ -104,5 +129,30 @@ const saveData = () => {
     padding: 0 8rem 0 8rem;
     font-size: 1.2rem;
   }
+}
+
+.chat {
+  padding-left: 8rem;
+  display: flex;
+  flex-direction: column;
+  &__label {
+    color: white;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  &__input {
+    background-color: black;
+    border-color: white;
+    margin-bottom: 1rem;
+    width: 10rem;
+    font-size: 1rem;
+    color: white;
+  }
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
 }
 </style>

@@ -1,0 +1,26 @@
+[
+  {
+    "id_article": 1,
+    "author": "Kiryl Tserpilouski",
+    "text": "Hello job",
+    "date": "20-04-2023"
+  },
+  {
+    "id_article": 5,
+    "author": "Kiryl Lol",
+    "text": "Hello job",
+    "date": "20-04-2023"
+  },
+  {
+    "id_article": 5,
+    "author": "Kiryl Lol",
+    "text": "Hello job, my new job my new comment",
+    "date": "20-04-2023"
+  },
+  {
+    "id_article": 2,
+    "author": "Kiryl Tserpilouski",
+    "text": "Hello job, hello world hahahahha",
+    "date": "20-04-2023"
+  }
+]
