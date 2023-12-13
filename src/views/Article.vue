@@ -26,15 +26,22 @@
           class="chat__input"
           id="chat"
           type="text"
+          v-model="chatText"
+          @keypress.enter="saveCommit"
           placeholder="write..."
         />
         <div class="comments">
-          <Comment :comment="comment"></Comment>
+          <Comment
+            v-for="com in findComments"
+            :key="com.id"
+            :comment="com"
+          ></Comment>
         </div>
       </div>
-
-      <p>Here's some contact info</p>
-      <button v-if="data" @click="openModal">Edit Post</button>
+      <div class="change-article">
+        <span>Change information about your article</span>
+        <button v-if="data" @click="openModal">Edit Post</button>
+      </div>
     </template>
   </BaseLayout>
   <Modal
@@ -51,29 +58,50 @@
 import BaseLayout from "../components/BaseLayout.vue";
 import datas from "../data/data.json";
 import { useRoute } from "vue-router";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import PostEditor from "../components/PostEditor.vue";
 import Modal from "../components/modals/Modal.vue";
 import Comment from "../components/Comment.vue";
 import dataComment from "../data/dataComent.json";
-console.log(dataComment);
+import { useStore } from "vuex";
 
+const store = useStore();
 const route = useRoute();
 const datass = ref(datas);
-const coments = ref(dataComment);
+const comments = ref(dataComment);
+const chatText = ref("");
 const isModalOpen = ref(false);
+const currentDate = new Date();
+const formattedDate = currentDate
+  .toLocaleDateString("en-GB")
+  .split("/")
+  .reverse()
+  .join("-");
 
 const id = +route.fullPath.split("/")[2];
 const data = datass.value.find((card) => card.id === id);
 const editableData = ref(data ? { ...data } : {});
-const comment = coments.value.find((comment) => comment.id_article === id);
-console.log(comment);
+
+const findComments = computed(() => {
+  return comments.value.filter((com) => com.id_article === id);
+});
 
 function openModal() {
   if (data) {
     editableData.value = { ...data };
     isModalOpen.value = true;
   }
+}
+
+function saveCommit() {
+  comments.value.push({
+    id_article: id,
+    author: "Kiryl lol",
+    text: chatText.value,
+    date: formattedDate,
+  });
+  chatText.value = "";
+  console.log(dataComment);
 }
 
 const saveData = () => {
@@ -154,5 +182,11 @@ const saveData = () => {
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
+}
+
+.change-article {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
 }
 </style>

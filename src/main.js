@@ -5,6 +5,7 @@ import Home from "./views/Home.vue";
 import About from "./views/About.vue";
 import UserView from "./views/UserView.vue";
 import Article from "./views/Article.vue";
+import store from "./store/store";
 
 import "./assets/css/main.css";
 
