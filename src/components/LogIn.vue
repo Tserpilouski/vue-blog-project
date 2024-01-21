@@ -2,34 +2,56 @@
   <form class="form" name="login-form" @submit.prevent="login">
     <div class="input">
       <label for="email">Email:</label>
-      <input id="email" type="email" v-model="inputs.email" />
+      <input id="email" type="email" v-model="user.email" />
     </div>
     <div class="input">
       <label for="password">Password:</label>
-      <input id="password" type="password" v-model="inputs.password" />
+      <input id="password" type="password" v-model="user.password" />
     </div>
-    <span v-if="error" class="error">{{ error }}</span>
-    <button class="btn" type="submit" v-on:click="login">Login</button>
+    <span>{{ errMsg }}</span>
+    <button class="btn" type="submit" v-on:click="sigin">Login</button>
   </form>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "vue-router";
 
-const inputs = ref({
+const router = useRouter();
+const errMsg = ref("");
+const user = ref({
   email: "",
   password: "",
 });
 
-const error = ref("");
+const auth = getAuth();
 
-function login() {
-  if (inputs.value.email === "" || inputs.value.password === "") {
-    error.value = "Username and Password cannot be empty";
-  } else {
-    error.value = "";
-  }
-}
+const sigin = () => {
+  signInWithEmailAndPassword(auth, user.value.email, user.value.password)
+    .then((data) => {
+      console.log("Successfuly login!", data);
+      router.push("/about");
+    })
+    .catch((error) => {
+      console.log(error.code);
+      switch (error.code) {
+        case "auth/invalid-email":
+          errMsg.value = "Invalid email";
+          break;
+        default:
+          errMsg.value = "good";
+      }
+    });
+};
+
+// function login() {
+//   if (user.value.email === "" || user.value.password === "") {
+//     error.value = "Username and Password cannot be empty";
+//   } else {
+//     error.value = "";
+//   }
+// }
 </script>
 
 <style>

@@ -4,16 +4,15 @@
       <img class="box__img" src="/men.png" alt="" />
       <div class="btnandinput">
         <div class="box__box-btn">
-          <button
-            v-for="(_, tab) in tabs"
-            :key="tab"
-            :class="['tab-button', { active: currentTab === tab }]"
-            @click="currentTab = tab"
-          >
-            {{ tab }}
+          <button class="tab-button" @click="choseBtn = 'signup'">
+            SignUp
           </button>
+          <button class="tab-button" @click="choseBtn = 'login'">SignIn</button>
         </div>
-        <component :is="tabs[currentTab]" class="tab"></component>
+        <div>
+          <LogIn v-if="choseBtn == 'login'" />
+          <SignUp v-else />
+        </div>
       </div>
     </div>
   </div>
@@ -23,12 +22,7 @@ import LogIn from "../components/LogIn.vue";
 import SignUp from "../components/SignUp.vue";
 import { ref } from "vue";
 
-const currentTab = ref("LogIn");
-
-const tabs = {
-  LogIn,
-  SignUp,
-};
+const choseBtn = ref("login");
 </script>
 
 <style lang="scss" scoped>

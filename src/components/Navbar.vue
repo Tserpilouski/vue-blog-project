@@ -19,20 +19,47 @@
       <div class="navmenu">
         <ul>
           <li>
-            <router-link to="/">Home</router-link>
+            <router-link :to="{ name: 'home' }">Home</router-link>
           </li>
           <li>
-            <router-link to="/about">About</router-link>
+            <router-link :to="{ name: 'about' }">About</router-link>
           </li>
           <li>
-            <router-link to="/user-view">User</router-link>
+            <router-link :to="{ name: 'user' }">User</router-link>
+          </li>
+          <li>
+            <button @click="handleSignOut" v-if="isLoggedIn">Sign out</button>
           </li>
         </ul>
       </div>
     </div>
   </header>
 </template>
-<script setup></script>
+
+<script setup>
+import { onMounted, ref } from "vue";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+
+const isLoggedIn = ref(false);
+
+let auth;
+onMounted(() => {
+  auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      isLoggedIn.value = true;
+    } else {
+      isLoggedIn.value = false;
+    }
+  });
+});
+
+const handleSignOut = () => {
+  signOut(auth).then(() => {
+    console.log("Its work");
+  });
+};
+</script>
 
 <style lang="scss" scoped>
 header {

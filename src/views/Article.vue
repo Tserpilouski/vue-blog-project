@@ -24,18 +24,17 @@
         <label class="chat__label" for="chat">Write your thoughts:</label>
         <input
           class="chat__input"
-          id="chat"
           type="text"
-          v-model="chatText"
-          @keypress.enter="saveCommit"
+          v-model="comment.text"
+          @keypress.enter="addComment"
           placeholder="write..."
         />
         <div class="comments">
           <Comment
-            v-for="com in findComments"
-            :key="com.id"
-            :comment="com"
-          ></Comment>
+            v-for="coment of filteredComments"
+            :key="coment.id"
+            :comment="coment"
+          />
         </div>
       </div>
       <div class="change-article">
@@ -44,74 +43,43 @@
       </div>
     </template>
   </BaseLayout>
-  <Modal
-    v-if="isModalOpen"
-    :modelValue="editableData"
-    @close="isModalOpen = false"
-    @save="saveData"
-  >
-    <PostEditor v-model="editableData"></PostEditor>
-  </Modal>
 </template>
 
 <script setup>
+import { useRoute } from "vue-router";
+import { ref, computed, onMounted } from "vue";
+import store from "../store";
 import BaseLayout from "../components/BaseLayout.vue";
 import datas from "../data/data.json";
-import { useRoute } from "vue-router";
-import { ref, computed } from "vue";
-import PostEditor from "../components/PostEditor.vue";
-import Modal from "../components/modals/Modal.vue";
 import Comment from "../components/Comment.vue";
-import dataComment from "../data/dataComent.json";
-import { useStore } from "vuex";
+import { formattedDate } from "../utils/index";
 
-const store = useStore();
 const route = useRoute();
-const datass = ref(datas);
-const comments = ref(dataComment);
-const chatText = ref("");
-const isModalOpen = ref(false);
-const currentDate = new Date();
-const formattedDate = currentDate
-  .toLocaleDateString("en-GB")
-  .split("/")
-  .reverse()
-  .join("-");
-
-const id = +route.fullPath.split("/")[2];
-const data = datass.value.find((card) => card.id === id);
-const editableData = ref(data ? { ...data } : {});
-
-const findComments = computed(() => {
-  return comments.value.filter((com) => com.id_article === id);
+const articleData = ref(datas);
+const data = articleData.value.find((card) => card.id == route.params.id);
+const articleComments = computed(() => store.state.comments);
+const filteredComments = computed(() => {
+  return articleComments.value.filter(
+    (comment) => comment.id_article === route.params.id
+  );
 });
 
-function openModal() {
-  if (data) {
-    editableData.value = { ...data };
-    isModalOpen.value = true;
-  }
+const comment = ref({
+  id_article: route.params.id,
+  author: "",
+  text: "",
+  date: formattedDate,
+});
+
+function addComment() {
+  store.dispatch("addComment", comment.value);
+  comment.value.text = "";
+  store.dispatch("getComments");
 }
 
-function saveCommit() {
-  comments.value.push({
-    id_article: id,
-    author: "Kiryl lol",
-    text: chatText.value,
-    date: formattedDate,
-  });
-  chatText.value = "";
-  console.log(dataComment);
-}
-
-const saveData = () => {
-  const index = datass.value.findIndex((card) => card.id === id);
-  if (index !== -1) {
-    datass.value[index] = { ...editableData.value };
-    data.value = { ...datass.value[index] };
-  }
-  isModalOpen.value = false;
-};
+onMounted(() => {
+  store.dispatch("getComments");
+});
 </script>
 
 <style lang="scss" scoped>

@@ -2,16 +2,19 @@
   <div class="comment">
     <div class="comment__img"></div>
     <div class="comment__text-box">
-      <span class="comment__author">{{ props.comment.author }}</span>
-      <span class="comment__text">{{ props.comment.text }} </span>
-      <span class="comment__date">{{ props.comment.date }}</span>
+      <span class="comment__author">{{
+        comment.author ? comment.author : "Unknown"
+      }}</span>
+      <span>{{ comment.text }}</span>
+      <span>{{ comment.date }}</span>
     </div>
   </div>
 </template>
 
 <script setup>
-const props = defineProps(["comment"]);
-console.log(props.comment);
+const { state } = defineProps({
+  comment: Object,
+});
 </script>
 
 <style lang="scss" scoped>
