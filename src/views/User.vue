@@ -2,15 +2,25 @@
   <div class="container">
     <div class="box">
       <img class="box__img" src="/men.png" alt="" />
-      <div class="btnandinput">
-        <div class="box__box-btn">
-          <button class="tab-button" @click="choseBtn = 'signup'">
+      <div class="authform">
+        <div class="boxbtn">
+          <button
+            class="boxbtn__btn"
+            :class="{ boxbtn__btn_active: !login }"
+            @click="login = false"
+          >
             SignUp
           </button>
-          <button class="tab-button" @click="choseBtn = 'login'">SignIn</button>
+          <button
+            class="boxbtn__btn"
+            :class="{ boxbtn__btn_active: login }"
+            @click="login = true"
+          >
+            SignIn
+          </button>
         </div>
         <div>
-          <LogIn v-if="choseBtn == 'login'" />
+          <LogIn v-if="login == true" />
           <SignUp v-else />
         </div>
       </div>
@@ -18,11 +28,11 @@
   </div>
 </template>
 <script setup>
-import LogIn from "../components/LogIn.vue";
-import SignUp from "../components/SignUp.vue";
+import LogIn from "../components/auth/LogIn.vue";
+import SignUp from "../components/auth/SignUp.vue";
 import { ref } from "vue";
 
-const choseBtn = ref("login");
+const login = ref(true);
 </script>
 
 <style lang="scss" scoped>
@@ -51,22 +61,24 @@ const choseBtn = ref("login");
   }
 }
 
-.btnandinput {
+.authform {
   background-color: white;
   padding: 1rem;
 }
 
-.tab-button {
+.boxbtn__btn {
   width: 10rem;
   height: 3rem;
   background: #f0f0f0;
   border: none;
-}
-.tab-button:hover {
-  background: #e0e0e0;
-}
-.tab-button.active {
-  background: #000000;
-  color: white;
+
+  &:hover {
+    background: #9b9b9b;
+  }
+
+  &_active {
+    color: white;
+    background-color: black;
+  }
 }
 </style>

@@ -3,12 +3,12 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCPlMos2fyzG0ZwWsTUisViMFIpwGlYUz4",
-  authDomain: "vue-blog-e6d63.firebaseapp.com",
-  projectId: "vue-blog-e6d63",
-  storageBucket: "vue-blog-e6d63.appspot.com",
-  messagingSenderId: "1078010803565",
-  appId: "1:1078010803565:web:7f5c80e5388b842996d664",
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);

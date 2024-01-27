@@ -1,14 +1,15 @@
 <template>
-  <form class="form" name="signup-form">
+  <form class="form" name="signup-form" @submit.prevent="register">
     <div class="input">
       <label for="email">Email:</label>
       <input id="email" type="text" v-model="user.email" />
     </div>
     <div class="input">
       <label for="password">Password:</label>
-      <input id="password" type="text" v-model="user.password" />
+      <input id="password" type="password" v-model="user.password" />
     </div>
-    <button class="btn" @click="register">Register</button>
+    <span>{{ errMsg }}</span>
+    <button class="btn" type="submit">Register</button>
   </form>
 </template>
 
@@ -22,6 +23,7 @@ const user = ref({
   email: "",
   password: "",
 });
+const errMsg = ref(null);
 
 const auth = getAuth();
 
@@ -32,6 +34,7 @@ const register = () => {
       router.push("/about");
     })
     .catch((error) => {
+      errMsg.value = error;
       console.log(error.code);
     });
 };

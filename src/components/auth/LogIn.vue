@@ -44,14 +44,6 @@ const sigin = () => {
       }
     });
 };
-
-// function login() {
-//   if (user.value.email === "" || user.value.password === "") {
-//     error.value = "Username and Password cannot be empty";
-//   } else {
-//     error.value = "";
-//   }
-// }
 </script>
 
 <style>
