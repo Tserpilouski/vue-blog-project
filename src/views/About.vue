@@ -1,25 +1,27 @@
 <template>
   <div class="container">
     <div class="box">
-      <pre>{{ tasks }}</pre>
-      <Test :tasks="tasks" />
+      <h2>Yours articlerticle</h2>
+      <button @click="openPopup">Create new article</button>
     </div>
+    <CreateNewArticle
+      :isPopupVisible="isPopupVisible"
+      @update-popup-visibility="handlePopupVisibility"
+    />
   </div>
 </template>
 <script setup>
-import { onMounted, ref } from "vue";
-import { db } from "../firebase/index";
-import { getDocs, collection } from "firebase/firestore";
-import Test from "../components/Test.vue";
+import { ref } from "vue";
+import CreateNewArticle from "../components/modals/CreateNewArticle.vue";
 
-const tasks = ref([]);
+const isPopupVisible = ref(false);
 
-onMounted(async function () {
-  const task = await getDocs(collection(db, "articles"));
-  task.forEach((task) => {
-    tasks.value.push({ ...task.data(), id: task.id });
-  });
-});
+const openPopup = () => {
+  isPopupVisible.value = true;
+};
+const handlePopupVisibility = (newVisibility) => {
+  isPopupVisible.value = newVisibility;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -28,12 +30,9 @@ onMounted(async function () {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 .box {
-  height: 50rem;
-  background-color: antiquewhite;
-  color: black;
+  height: 100vh;
 }
 </style>
