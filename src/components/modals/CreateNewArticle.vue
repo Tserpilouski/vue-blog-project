@@ -7,36 +7,116 @@
     <hr />
     <div class="popup__main">
       <div class="main__uploadimg">
-        <span>Add img to you article:</span>
-        <input type="file" required accept="image/*" />
+        <span>Add img to your article:</span>
+        <input type="file" :key="inputKey" @change="handleFileChange" />
       </div>
       <div class="main__articletext">
         <span>Title to your article:</span>
-        <span>Tag to you article:</span>
-        <span>Text to you article:</span>
+        <input type="text" v-model="articleTitle" />
+        <span>Tag to your article:</span>
+        <input type="text" v-model="articleTag" />
+        <span>Text to your article:</span>
+        <textarea v-model="articleText"></textarea>
       </div>
+      <button @click="uploadPhoto">Загрузить фото</button>
+      <div v-if="photoURL">URL фото: {{ photoURL }}</div>
+      <button @click="saveArticle">Сохранить</button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
+import {
+  getStorage,
+  ref as storageRef,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 import { app } from "../../firebase/index";
-import { doc, updateDoc } from "firebase/firestore";
-import { getFirestore } from "firebase/firestore";
-import { storage } from "../../firebase/index";
-import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { formattedDate } from "../../utils";
+
 const db = getFirestore(app);
-const collectionRef = doc(db, "doc", "doc1");
+
+const auth = getAuth();
+const user = auth.currentUser;
+const photo = ref(null);
+const photoURL = ref("");
+const inputKey = ref(0);
+const articleTitle = ref("");
+const articleTag = ref("");
+const articleText = ref("");
+const storage = getStorage(app);
 
 const props = defineProps({
   isPopupVisible: Boolean,
 });
 
+const handleFileChange = (event) => {
+  photo.value = event.target.files[0];
+};
+
+const uploadPhoto = async () => {
+  if (!photo.value) return;
+
+  const uploadRef = storageRef(storage, `photos/${photo.value.name}`);
+  const uploadTask = uploadBytesResumable(uploadRef, photo.value);
+
+  uploadTask.on(
+    "state_changed",
+    (snapshot) => {},
+    (error) => {},
+    () => {
+      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        photoURL.value = downloadURL;
+      });
+    }
+  );
+};
+
+const saveArticle = async () => {
+  if (!photoURL.value) {
+    alert("Please upload the photo first!");
+    return;
+  }
+
+  const articleData = {
+    title: articleTitle.value,
+    tag: articleTag.value,
+    text: articleText.value,
+    photoURL: photoURL.value,
+    userId: user.uid,
+    date: formattedDate,
+    author: "Kiryl Tserpilouski",
+  };
+
+  try {
+    await addDoc(collection(db, "articles"), articleData);
+    alert("Article saved successfully!");
+    articleTitle.value = "";
+    articleTag.value = "";
+    articleText.value = "";
+    photo.value = null;
+    photoURL.value = "";
+  } catch (error) {
+    console.error("Error saving the article: ", error);
+  }
+};
+
 const emit = defineEmits(["update-popup-visibility"]);
 const closePopup = () => {
   emit("update-popup-visibility", false);
+  inputKey.value++;
 };
+
+watchEffect(() => {
+  if (!props.isPopupVisible) {
+    photo.value = null;
+    photoURL.value = "";
+  }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -48,6 +128,7 @@ const closePopup = () => {
   width: 1280px;
   background-color: aliceblue;
   color: black;
+  z-index: 100;
 
   &__top {
     display: flex;
