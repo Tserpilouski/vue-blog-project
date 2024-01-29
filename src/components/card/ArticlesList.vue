@@ -1,7 +1,11 @@
 <template>
   <div class="card">
     <div class="card__box">
-      <img class="artimg" :src="props.article.photoURL" alt="Article Image" />
+      <img
+        class="card__img"
+        :src="props.article.photoURL"
+        alt="Article Image"
+      />
     </div>
     <div class="card__info">
       <div class="card__header">
@@ -25,7 +29,7 @@ const props = defineProps({
 .card {
   display: flex;
   flex-direction: column;
-  background-color: rgb(72, 51, 51);
+  background-color: rgb(255, 255, 255);
   width: 20rem;
   height: 22rem;
   margin: 0 1rem 1rem 0;
@@ -55,7 +59,7 @@ const props = defineProps({
   &__date,
   &__text {
     font-size: 0.8rem;
-    color: gray;
+    color: rgb(0, 0, 0);
     margin-bottom: 0.5rem;
   }
   &__title {

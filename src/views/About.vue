@@ -1,18 +1,21 @@
 <template>
   <div class="container">
-    <div class="box">
-      <h2>Yours articlerticle</h2>
-      <button @click="openPopup">Create new article</button>
+    <div class="header">
+      <h2>Your articles</h2>
+      <button class="header__btn" @click="openPopup">Create new article</button>
     </div>
     <CreateNewArticle
       :isPopupVisible="isPopupVisible"
       @update-popup-visibility="handlePopupVisibility"
     />
-    <ArticlesList
-      v-for="article in articles"
-      :key="article.id"
-      :article="article"
-    />
+    <div class="main">
+      <ArticlesList
+        v-for="article in articles"
+        :key="article.id"
+        :article="article"
+        @click="$router.push({ name: 'article', params: { id: article.id } })"
+      />
+    </div>
   </div>
 </template>
 <script setup>
@@ -29,6 +32,7 @@ const user = auth.currentUser;
 
 const db = getFirestore(app);
 const articles = ref([]);
+const isPopupVisible = ref(false);
 
 onMounted(async () => {
   const articlesQuery = query(
@@ -42,8 +46,6 @@ onMounted(async () => {
   }));
 });
 
-const isPopupVisible = ref(false);
-
 const openPopup = () => {
   isPopupVisible.value = true;
 };
@@ -55,12 +57,38 @@ const handlePopupVisibility = (newVisibility) => {
 <style lang="scss" scoped>
 .container {
   width: 1280px;
+  height: 70vh;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
 }
 
-// .box {
-//   height: 100vh;
-// }
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1rem;
+  margin-bottom: 2rem;
+
+  &__btn {
+    border: none;
+    background-color: white;
+    width: 10rem;
+    height: 2rem;
+    &:hover {
+      color: white;
+      background-color: red;
+    }
+  }
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
 </style>

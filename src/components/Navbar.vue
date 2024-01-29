@@ -22,7 +22,7 @@
             <router-link :to="{ name: 'home' }">Home</router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'about' }">About</router-link>
+            <router-link :to="{ name: 'about' }">Your articles</router-link>
           </li>
           <li>
             <router-link :to="{ name: 'user' }">User</router-link>
@@ -55,9 +55,13 @@ onMounted(() => {
 });
 
 const handleSignOut = () => {
-  signOut(auth).then(() => {
-    console.log("Its work");
-  });
+  signOut(auth)
+    .then(() => {
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.error("Sign out error:", error);
+    });
 };
 </script>
 

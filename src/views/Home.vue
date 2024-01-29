@@ -1,7 +1,21 @@
 <script setup>
+import { ref, onMounted } from "vue";
+import { app } from "../firebase/index";
 import datas from "../data/data.json";
 import MainCard from "../components/MainCard.vue";
 import CardWithFoto from "../components/card/CardWithFoto.vue";
+import ArticlesList from "../components/card/ArticlesList.vue";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+
+const articles = ref([]);
+const db = getFirestore(app);
+onMounted(async () => {
+  const querySnapshot = await getDocs(collection(db, "articles"));
+  articles.value = querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+});
 </script>
 
 <template>
@@ -26,6 +40,7 @@ import CardWithFoto from "../components/card/CardWithFoto.vue";
     </div>
   </div>
   <div class="container">
+    <h2 class="container__title">Lutest articles</h2>
     <div class="anothernews">
       <CardWithFoto
         v-for="card in datas.sort((a, b) => b.vote - a.vote).slice(3)"
@@ -33,6 +48,14 @@ import CardWithFoto from "../components/card/CardWithFoto.vue";
         :cardData="card"
         @click="$router.push({ name: 'article', params: { id: card.id } })"
       ></CardWithFoto>
+    </div>
+    <h2 class="container__title">Articles from anather users</h2>
+    <div class="anothernews">
+      <ArticlesList
+        v-for="article in articles"
+        :key="article.id"
+        :article="article"
+      />
     </div>
   </div>
 </template>
@@ -44,6 +67,10 @@ import CardWithFoto from "../components/card/CardWithFoto.vue";
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  &__title {
+    font-size: 2rem;
+  }
 }
 
 .newsbox {

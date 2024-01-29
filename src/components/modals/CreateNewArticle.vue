@@ -1,14 +1,19 @@
 <template>
   <div v-if="props.isPopupVisible" class="popup">
     <div class="popup__top">
-      <span>Create a new article</span>
-      <button @click="closePopup">Close</button>
+      <h2>Create a new article</h2>
+      <button class="btn" @click="closePopup">Close</button>
     </div>
     <hr />
     <div class="popup__main">
       <div class="main__uploadimg">
         <span>Add img to your article:</span>
-        <input type="file" :key="inputKey" @change="handleFileChange" />
+        <input
+          class="fileupload"
+          type="file"
+          :key="inputKey"
+          @change="handleFileChange"
+        />
       </div>
       <div class="main__articletext">
         <span>Title to your article:</span>
@@ -18,9 +23,11 @@
         <span>Text to your article:</span>
         <textarea v-model="articleText"></textarea>
       </div>
-      <button @click="uploadPhoto">Загрузить фото</button>
       <div v-if="photoURL">URL фото: {{ photoURL }}</div>
-      <button @click="saveArticle">Сохранить</button>
+      <div class="footerbtn">
+        <button class="btn" @click="uploadPhoto">Upload photo</button>
+        <button class="btn" @click="saveArticle">Save article</button>
+      </div>
     </div>
   </div>
 </template>
@@ -126,20 +133,23 @@ watchEffect(() => {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 1280px;
-  background-color: aliceblue;
+  background-color: rgb(255, 255, 255);
   color: black;
   z-index: 100;
+  border: 2px solid red;
 
   &__top {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     padding: 0.5rem 2rem 0.5rem 2rem;
   }
 
   &__main {
     display: flex;
     flex-direction: column;
+    padding-left: 2rem;
   }
 }
 
@@ -154,13 +164,64 @@ watchEffect(() => {
   &__articletext {
     display: flex;
     flex-direction: column;
-    & > * {
-      margin-bottom: 1rem;
-    }
   }
 }
 
 hr {
-  margin: 0;
+  margin-top: 0rem;
+  margin-bottom: 1rem;
+}
+
+input {
+  width: 50%;
+  border: 1px solid black;
+  height: 2rem;
+  margin-bottom: 1rem;
+}
+
+textarea {
+  width: 50%;
+  margin-bottom: 2rem;
+}
+
+.fileupload {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #ffffff; /* цвет фона */
+  color: #ffffff; /* цвет текста */
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  width: 20%;
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: #ff5b4f;
+  }
+}
+
+.footerbtn {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+  & > * {
+    margin-right: 1rem;
+  }
+}
+
+.btn {
+  border: none;
+  background-color: black;
+  color: white;
+  width: 10rem;
+  height: 2rem;
+  margin-bottom: 0;
+  &:hover {
+    color: white;
+    background-color: red;
+  }
+}
+
+h2 {
+  font-size: 2rem;
 }
 </style>
